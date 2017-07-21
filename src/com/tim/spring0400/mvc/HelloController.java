@@ -1,5 +1,10 @@
 package com.tim.spring0400.mvc;
 
+import java.util.Locale;
+
+import javax.annotation.Resource;
+
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +20,8 @@ import com.tim.spring0400.model.Student;
 @RequestMapping("/hello")
 public class HelloController
 {
+	@Resource
+	private MessageSource messageSource;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String sayHello(Model model)
@@ -34,6 +41,9 @@ public class HelloController
 	public String sayHello3(Model model)
 	{
 		Student stu = new Student();
+		String x1 = messageSource.getMessage("abc.hello", null, "default1", Locale.CHINA);
+		System.out.println("x1:" + x1);
+		model.addAttribute("message", x1);
 		model.addAttribute("stu", stu);
 		return "input";
 	}
